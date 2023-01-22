@@ -1,0 +1,13 @@
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+.DS_Store
+
+# dotenv environment variables file
+index.js
+yarn.lock
+index.js
+.env
+.env

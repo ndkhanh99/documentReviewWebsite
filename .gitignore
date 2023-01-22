@@ -1,1 +1,9 @@
 .DS_Store
+server/.env
+server/index.js
+server/yarn.lock
+
+server/.env
+server/yarn.lock
+server/.env
+server/.env

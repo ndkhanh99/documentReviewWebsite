@@ -1,5 +1,7 @@
 const express = require('express');
-const http = require('http')
+const multer = require('multer');
+const http = require('http');
+const upload = multer({ dest: 'files/' });
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();

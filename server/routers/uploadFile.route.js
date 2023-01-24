@@ -1,4 +1,15 @@
 const express = require('express');
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'files');
+    },
+    filename: (req, file, cb) => {
+        const { originalname } = file;
+        cb(null, originalname);
+    }
+});
+const upload = multer({ storage });
 const router = express.Router();
 const uploadFileController = require('../controllers/uploadFile.controller')
 // const { verifyAdmin, verifyToken } = require('../middleware/auth.middleware')
@@ -8,13 +19,13 @@ const uploadFileController = require('../controllers/uploadFile.controller')
 // @desc Register user
 // @access Public
 
-router.post("/upload", (req, res) => {
-    // use modules such as express-fileupload, Multer, Busboy
+router.post("/upload", upload.single('newFile'), (req, res) => {
 
     setTimeout(() => {
         console.log('file uploaded')
         return res.status(200).json({ result: true, msg: 'file uploaded' });
     }, 3000);
+
 });
 
 router.delete("/upload", (req, res) => {

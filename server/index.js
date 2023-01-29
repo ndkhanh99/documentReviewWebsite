@@ -16,6 +16,7 @@ const app = express();
 app.use(cors(corsOptions))
 app.use(express.json());
 app.use(cookieParser())
+app.use(express.static('files/'));
 app.get("/", (req, res) => res.send('Project Back end Server'));
 
 // import route from routers

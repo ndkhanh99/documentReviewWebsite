@@ -4,6 +4,7 @@ const router = express.Router()
 const { verifyAdmin, verifyTokenGVandAdmin } = require('../middleware/auth.middleware')
 
 router.get('/', FileController.getAllFiles);
+router.post('/download', FileController.downloadFile);
 
 
 

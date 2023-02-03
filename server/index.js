@@ -11,13 +11,16 @@ const corsOptions = {
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200,
 }
+const bodyParser = require('body-parser');
 mongoose.set('strictQuery', false)
 const app = express();
 app.use(cors(corsOptions))
 app.use(express.json());
-app.use(cookieParser())
-app.use(express.static('files/'));
+app.use(cookieParser());
+app.use(express.static(__dirname + '/files'));
 app.get("/", (req, res) => res.send('Project Back end Server'));
+// parse application/json
+app.use(bodyParser.json());
 
 // import route from routers
 const authRouter = require('./routers/auth.route');

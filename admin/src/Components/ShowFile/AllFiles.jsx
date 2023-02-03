@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-const FileItem = ({ file, deleteFile }) => {
-
+export default function FileItem(file, deleteFile) {
     // fetch files from db
     let [items, setItems] = useState([]);
     useEffect(() => { getMenuItems() }, []);
@@ -30,7 +29,7 @@ const FileItem = ({ file, deleteFile }) => {
     }
 
     const hideElement = document.getElementsByClassName('react-pdf__Page__annotations annotationLayer');
-    console.log(hideElement);
+    // console.log(hideElement);
     for (let i = 0; i < hideElement.length; i++) {
         hideElement[i].style.display = 'none';
     }
@@ -46,11 +45,7 @@ const FileItem = ({ file, deleteFile }) => {
                                 <img src="/images/pdfexample.gif" width={300} height={350} alt="Logo" />
                                 <p className='item-name'>{item.name}</p>
                             </a> */}
-                            <Link
-                                to={{
-                                    pathname: "/files/details",
-                                    state: { data: item.name },
-                                }}
+                            <Link to="/files/details" state={{ data: item.name }}
                             >
                                 <img src="/images/pdfexample.gif" width={300} height={350} alt="Logo" />
                                 <p className='item-name'>{item.name}</p>
@@ -60,28 +55,6 @@ const FileItem = ({ file, deleteFile }) => {
                 )}
 
             </div>
-            {/* <ul>
-                {items.map((item, index) =>
-                    <li className='p-4 hover:text-yellow-300' key={index}>{item.name}</li>
-                )}
-            </ul>
-            <div className='pdf'>
-                <Document
-                    file={{
-                        url:
-                            'http://localhost:3001/gt2c2.pdf',
-                    }}
-                    onLoadSuccess={onDocumentLoadSuccess}
-                    onContextMenu={(e) => e.preventDefault()}
-                >
-                    <Page pageNumber={pageNumber} />
-                </Document>
-                <p>
-                    Page {pageNumber} of {numPages}
-                </p>
-            </div> */}
         </div>
-    )
+    );
 }
-
-export default FileItem

@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+
+    .column1 {
+        text-align: center;
+        align-items: center;
+
+        .item-name {
+            display: block;
+            color: rgb(32, 154, 220);
+        }
+    }
+}
+
+.pdf {
+    .react-pdf__Document {
+        .react-pdf__Page {
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+            .react-pdf__Page__annotations {
+                display: none;
+            }
+        }
+    }
+}

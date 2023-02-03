@@ -22,6 +22,7 @@ app.get("/", (req, res) => res.send('Project Back end Server'));
 // import route from routers
 const authRouter = require('./routers/auth.route');
 const uploadRouter = require('./routers/uploadFile.route');
+const getFileRouter = require('./routers/getFiles.route');
 
 
 const connectDB = async () => {
@@ -43,6 +44,7 @@ connectDB();
 
 app.use('/api/auth', authRouter);
 app.use('/api/file', uploadRouter);
+app.use('/api/file/show', getFileRouter);
 
 
 

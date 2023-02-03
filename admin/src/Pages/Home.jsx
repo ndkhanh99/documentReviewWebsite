@@ -15,6 +15,7 @@ import { logOut } from '../store/auth/authSlice';
 
 import FileUpload from '../Components/UploadFile/FileUpload';
 import FileList from '../Components/UploadFile/FileList';
+import AllFiles from '../Components/ShowFile/AllFiles';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -130,14 +131,18 @@ const Home = () => {
                         <FileList files={files} removeFile={removeFile} />
                     </div>
                 </Content>
-                <div className='pdf' style={{ height: '500px', alignItems: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'row', justifyItems: 'center', margin: '20px' }}>
+                {/* <div>
+                    <AllFiles></AllFiles>
+                </div> */}
+                {/* <div className='pdf' style={{ height: '500px', alignItems: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'row', justifyItems: 'center', margin: '20px' }}>
                     <object data="http://localhost:3001/gt2c2.pdf" type="application/pdf" width="70%" height="100%">
                         <p>Alternative text - include a link <a href="http://localhost:3001/gt2c2.pdf">to the PDF!</a></p>
                     </object>
-                </div>
+                </div> */}
                 <Footer
                     style={{
                         textAlign: 'center',
+                        backgroundColor: '#fff'
                     }}
                 >
                     Thiết kế bởi : builinhduong43@gmail.com

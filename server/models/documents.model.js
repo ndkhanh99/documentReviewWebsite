@@ -13,6 +13,13 @@ const DocumentModel = mongoose.Schema({
         require: false,
     },
     deleted: { type: Boolean },
+    type : {
+        type : mongoose.Types.ObjectId,
+        require : true
+    },
+    dowloadCount : {
+        type : Number
+    },
     note: { type: String }
 }, { timestamps: true })
 

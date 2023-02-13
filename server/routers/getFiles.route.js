@@ -5,6 +5,7 @@ const { verifyAdmin, verifyTokenGVandAdmin } = require('../middleware/auth.middl
 
 router.get('/', FileController.getAllFiles);
 router.post('/download', FileController.downloadFile);
+router.post('/doctype', verifyAdmin ,FileController.addNewDocType)
 
 
 

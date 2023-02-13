@@ -12,10 +12,10 @@ export default function Navigation(props) {
     return (
         <Routes >
             <Route path="/" element={<Home />} />
-            <Route path="/files" element={<Files />} />
-            <Route path="/files/details" element={<FileDetails />} />
             <Route exact path="login" element={<Login />} />
             <Route path="class/:id" element={<Class />} />
+            <Route path="/files" element={<Files />} />
+            <Route path="/files/details" element={<FileDetails />} />
         </Routes>
 
     )

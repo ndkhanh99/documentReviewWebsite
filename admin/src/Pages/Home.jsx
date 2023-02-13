@@ -5,7 +5,7 @@ import {
 } from '@ant-design/icons';
 import { Breadcrumb, Button, Layout, Menu } from 'antd';
 import React, { useEffect, useState } from 'react';
-import Addclass from '../Components/AddClass';
+import AddDocument from '../Components/AddDocument';
 import AddUser from '../Components/AddUser';
 import Listuser from '../Components/ListUser';
 import Listclass from '../Components/ListClass';
@@ -16,6 +16,7 @@ import { logOut } from '../store/auth/authSlice';
 import FileUpload from '../Components/UploadFile/FileUpload';
 import FileList from '../Components/UploadFile/FileList';
 import AllFiles from '../Components/ShowFile/AllFiles';
+import AddDocType from '../Components/AddDocType';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -35,25 +36,24 @@ const items = [
         getItem('Thêm', '2', '', null, <AddUser />),
         getItem('Danh sách', '3', '', null, <Listuser />),
     ]),
-    getItem('Tai lieu', 'sub2', <TeamOutlined />, [getItem('Them tai lieu', '5'), getItem('Danh sach tai lieu', '6')]),
+    getItem('Tài liệu', 'sub2', <TeamOutlined />,
+        [getItem('Thêm loại tài liệu', '5'),
+        getItem('Thêm tài liệu', '6'),
+        getItem('Danh sách tài liệu', '7')]),
 ];
 
 const listComponentRender = [
     getItem('Thêm', '2', '', null, <AddUser />),
     getItem('Danh sách', '3', '', null, <Listuser />),
-    // getItem('Them lop hoc', '5', '', null, <Addclass />),
-    // getItem('Danh sach lop hoc', '6', '', null, <Listclass />)
+    getItem('Thêm loại tài liệu', '5', '', null, <AddDocType />),
+    getItem('Thêm tài liệu', '6', '', null, <AddDocument />),
+    getItem('Danh sách tài liệu', '7', '', null, <Listclass />)
 ]
 
 
 
 
 const Home = () => {
-    const [files, setFiles] = useState([]);
-
-    const removeFile = (filename) => {
-        setFiles(files.filter(file => file.name !== filename))
-    };
 
     const isLogin = useSelector(state => state.auth.isLogin)
     const navigate = useNavigate()
@@ -111,7 +111,7 @@ const Home = () => {
                             margin: '16px 0',
                         }}
                     >
-                        <Breadcrumb.Item>{element === 'sub1' ? 'User' : 'Class'}</Breadcrumb.Item>
+                        <Breadcrumb.Item>{element === 'sub1' ? 'User' : 'Tài liệu'}</Breadcrumb.Item>
                         <Breadcrumb.Item>{breakcum}</Breadcrumb.Item>
                     </Breadcrumb>
                     <div
@@ -123,22 +123,7 @@ const Home = () => {
                     >
                         {componentLayout}
                     </div>
-                    <div className="files-upload">
-                        <div className="title">Upload file</div>
-                        <FileUpload files={files} setFiles={setFiles}
-                            removeFile={removeFile}
-                        />
-                        <FileList files={files} removeFile={removeFile} />
-                    </div>
                 </Content>
-                {/* <div>
-                    <AllFiles></AllFiles>
-                </div> */}
-                {/* <div className='pdf' style={{ height: '500px', alignItems: 'center', justifyContent: 'center', display: 'flex', flexDirection: 'row', justifyItems: 'center', margin: '20px' }}>
-                    <object data="http://localhost:3001/gt2c2.pdf" type="application/pdf" width="70%" height="100%">
-                        <p>Alternative text - include a link <a href="http://localhost:3001/gt2c2.pdf">to the PDF!</a></p>
-                    </object>
-                </div> */}
                 <Footer
                     style={{
                         textAlign: 'center',

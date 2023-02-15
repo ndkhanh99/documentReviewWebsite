@@ -14,7 +14,7 @@ export default function Login(props) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(() => {
-        if (localStorage.length !==0) {
+        if (localStorage.getItem("token").length !==0) {
         const token = localStorage.getItem('token')
         const decode = jwtDecode(token)
         userServices.getUserInfoById(decode.userID)

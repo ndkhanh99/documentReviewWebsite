@@ -8,6 +8,7 @@ import classServices from '../services/classServices';
 import { CloseCircleTwoTone, CheckCircleTwoTone } from '@ant-design/icons';
 import FileUpload from './UploadFile/FileUpload';
 import FileList from './UploadFile/FileList';
+import docServices from '../services/docServices';
 
 const { Option } = Select
 
@@ -31,14 +32,15 @@ const validateMessages = {
 
 export default function AddDocument(props) {
     const token = useSelector(state => state.auth.token)
-    const [listGV, setlistGV] = useState([])
+    const [listDoc, setListDoc] = useState([])
     const [files, setFiles] = useState([]);
+
 
     const removeFile = (filename) => {
         setFiles(files.filter(file => file.name !== filename))
     };
     const onFinish = (values) => {
-        classServices.addClass(token, values.class)
+        docServices.addDocument(token, values.document)
             .then(
                 (res) => {
                     // console.log(res)
@@ -57,11 +59,13 @@ export default function AddDocument(props) {
     }
 
     useEffect(() => {
-        userServices.getListUsers(token, 'GV')
+        docServices.getAllDocType()
             .then(
-                res => setlistGV(res)
+                res => {
+                    setListDoc(res.data)
+                }
             )
-    }, [token]);
+    }, []);
 
     return (
         <div>
@@ -98,10 +102,10 @@ export default function AddDocument(props) {
                     ]}>
                     <Select>
                         {
-                            listGV.map(
+                            listDoc.map(
                                 item => <Option key={item._id}
                                     value={item._id}
-                                >{item.name} - {item.email}</Option>
+                                >{item.code} - {item.name}</Option>
                             )
                         }
                     </Select>

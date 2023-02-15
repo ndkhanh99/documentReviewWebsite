@@ -13,9 +13,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../store/auth/authSlice';
 
-import FileUpload from '../Components/UploadFile/FileUpload';
-import FileList from '../Components/UploadFile/FileList';
-import AllFiles from '../Components/ShowFile/AllFiles';
 import AddDocType from '../Components/AddDocType';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -59,7 +56,7 @@ const Home = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(() => {
-        if (!isLogin) {
+        if (!isLogin || !localStorage.getItem("token")) {
             navigate('./login')
         }
     }, [isLogin, navigate])

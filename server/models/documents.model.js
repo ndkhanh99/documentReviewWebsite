@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
 const DocumentModel = mongoose.Schema({
+    code: {
+        type: String,
+        require: true
+    },
     name: {
         type: String,
         require: true
@@ -12,13 +16,16 @@ const DocumentModel = mongoose.Schema({
         type: Number,
         require: false,
     },
-    deleted: { type: Boolean },
+    deleted: { 
+        type: Boolean,      
+        default : false },
     type : {
         type : mongoose.Types.ObjectId,
         require : true
     },
     dowloadCount : {
-        type : Number
+        type : Number,
+        default : 0
     },
     note: { type: String }
 }, { timestamps: true })

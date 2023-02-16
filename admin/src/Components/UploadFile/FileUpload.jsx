@@ -4,7 +4,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import './FileUpload.scss';
 import axios from 'axios';
 
-const FileUpload = ({ files, setFiles, removeFile }) => {
+const FileUpload = ({ files, setFiles, removeFile, onUpload }) => {
     const uploadHandler = (event) => {
         const file = event.target.files[0];
         if (!file) return;
@@ -12,22 +12,24 @@ const FileUpload = ({ files, setFiles, removeFile }) => {
         setFiles([...files, file])
 
         // upload file
-        const formData = new FormData();
-        formData.append(
-            "newFile",
-            file,
-            file.name
-        )
-        axios.post('http://localhost:3001/api/file/upload', formData)
-            .then((res) => {
-                file.isUploading = false;
-                setFiles([...files, file])
-            })
-            .catch((err) => {
-                // inform the user
-                console.error(err)
-                removeFile(file.name)
-            });
+        // const formData = new FormData();
+        // formData.append(
+        //     "newFile",
+        //     file,
+        //     file.name
+        // )
+        // axios.post('http://localhost:3001/api/file/upload', formData)
+        //     .then((res) => {
+        //         file.isUploading = false;
+        //         setFiles([...files, file])
+        //     })
+        //     .catch((err) => {
+        //         // inform the user
+        //         console.error(err)
+        //         removeFile(file.name)
+        //     });
+
+        
     }
 
     return (

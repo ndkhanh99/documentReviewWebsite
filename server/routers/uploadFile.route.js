@@ -11,22 +11,10 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 const router = express.Router();
-const uploadFileController = require('../controllers/uploadFile.controller')
-const Documents = require('../models/documents.model');
+
 
 router.post("/upload", upload.single('newFile'), (req, res) => {
-    // console.log(req.file.filename);
-    const newFile = new Documents({
-        name: req.file.filename,
-        uploadBy: 1,
-    });
-    newFile.save().then(
-        setTimeout(() => {
-            console.log('file uploaded')
-            return res.status(200).json({ result: true, msg: 'file uploaded' });
-        }, 3000)
-    );
-
+    console.log(req.file.filename);
 });
 
 router.delete("/upload", (req, res) => {

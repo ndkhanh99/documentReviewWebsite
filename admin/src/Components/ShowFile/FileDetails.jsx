@@ -10,7 +10,6 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 export default function FileDetails(props) {
     const location = useLocation();
     const data = location.state?.data;
-    console.log(data);
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
 
@@ -89,7 +88,7 @@ export default function FileDetails(props) {
             <Document
                 file={{
                     url:
-                        'http://localhost:3001/' + data,
+                        'http://localhost:3001/' + 'Nguyen-Duy-Khanh-TopCV.vn-031022.105542.pdf',
                 }}
                 onLoadSuccess={onDocumentLoadSuccess}
                 onContextMenu={(e) => e.preventDefault()}

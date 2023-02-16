@@ -27,6 +27,14 @@ const DocumentModel = mongoose.Schema({
         type : Number,
         default : 0
     },
+    fileName : {
+        type :String,
+        default : ""
+    },
+    forNormal : {
+        type : Boolean,
+        default : false
+    },
     note: { type: String }
 }, { timestamps: true })
 

@@ -12,7 +12,6 @@ export default function FileItem(file, deleteFile) {
 
     async function getMenuItems() {
         const response = await fetch('http://localhost:3001/api/file/show');
-        // console.log(response);
         const data = await response.json();
         setItems(data);
     };
@@ -38,17 +37,12 @@ export default function FileItem(file, deleteFile) {
         <div className='container'>
             <div className='row'>
                 {items.map((item, index) =>
-                    // <li  key={index}>{item.name}</li>
                     <div className='column1' key={index}>
-                        <div>
-                            {/* <a href={"/files/details/" + item.name}>
-                                <img src="/images/pdfexample.gif" width={300} height={350} alt="Logo" />
-                                <p className='item-name'>{item.name}</p>
-                            </a> */}
+                        <div className='column-item'>
+                            <p className='item-name'>{item.name}</p>
                             <Link to="/files/details" state={{ data: item.name }}
                             >
-                                <img src="/images/pdfexample.gif" width={300} height={350} alt="Logo" />
-                                <p className='item-name'>{item.name}</p>
+                                <img src="/images/pdfexample.gif" width={200} height={250} alt="Logo" />
                             </Link>
                         </div>
                     </div>

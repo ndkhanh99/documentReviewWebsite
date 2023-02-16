@@ -1,7 +1,17 @@
 const multer = require('multer');
 const Files = require('../models/documents.model');
 const DocType = require('../models/docType.model')
-const createError = require('../utils/errors');
+const createError = require('../utils/errors')
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'files');
+    },
+    filename: (req, file, cb) => {
+        const { originalname } = file;
+        cb(null, originalname);
+    }
+});
+const upload = multer({ storage });
 
 const FileController = {
     getAllFiles: (req, res) => {
@@ -34,7 +44,7 @@ const FileController = {
         try {
             const doc = await Files.findOne({code : code}) 
             if (doc) {
-                return res.status(400).json(createError(false, 'Tai lieu da ton tai'))
+                return res.status(400).json(createError(false, 'Ma Tai lieu da ton tai'))
             }
             const newDoc = new Files({
                 code : code,

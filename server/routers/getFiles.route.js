@@ -7,7 +7,8 @@ router.get('/', FileController.getAllFiles);
 router.post('/download', FileController.downloadFile);
 router.post('/doctype', verifyAdmin ,FileController.addNewDocType)
 router.get('/doctype',FileController.getAllDocType )
-router.post('/doc',verifyAdmin, FileController.addNewDocument)
+router.post('/doc', FileController.addNewDocument)
+router.get('/doc',FileController.getALlDoc)
 
 
 

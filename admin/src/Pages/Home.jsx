@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 import AddDocument from '../Components/AddDocument';
 import AddUser from '../Components/AddUser';
 import Listuser from '../Components/ListUser';
-import Listclass from '../Components/ListClass';
+import ListDoc from '../Components/ListDoc';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../store/auth/authSlice';
@@ -44,7 +44,7 @@ const listComponentRender = [
     getItem('Danh sách', '3', '', null, <Listuser />),
     getItem('Thêm loại tài liệu', '5', '', null, <AddDocType />),
     getItem('Thêm tài liệu', '6', '', null, <AddDocument />),
-    getItem('Danh sách tài liệu', '7', '', null, <Listclass />)
+    getItem('Danh sách tài liệu', '7', '', null, <ListDoc />)
 ]
 
 

@@ -14,14 +14,14 @@ export default function Login(props) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(() => {
-        if (localStorage.getItem("token").length !==0) {
         const token = localStorage.getItem('token')
+        if (token && token.length !== 0) {
         const decode = jwtDecode(token)
         userServices.getUserInfoById(decode.userID)
         .then(res => {
             if (res.success) {
                 dispatch(userRemember({token : token}))
-                navigate('/')
+                navigate('admin/')
             }
         })
         .catch(err => console.log(err))
@@ -35,7 +35,7 @@ export default function Login(props) {
         .then(res => {
             if(res.payload.success) {
                 openNotification(<CheckCircleTwoTone twoToneColor={'green'}/>,'Notification!',res.payload.message)
-                navigate('/')
+                navigate('/admin/')
             }else {
                 openNotification(<CloseCircleTwoTone twoToneColor={'red'}/>,'Notification!',res.payload.message)
             }

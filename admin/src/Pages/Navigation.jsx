@@ -5,14 +5,16 @@ import Home from './Home'
 import Login from './Login'
 import Files from './Files'
 import FileDetails from '../Components/ShowFile/FileDetails'
+import ClientHome from './ClientRoute/ClientHome'
 
 export default function Navigation(props) {
 
 
     return (
         <Routes >
-            <Route path="/" element={<Home />} />
-            <Route exact path="login" element={<Login />} />
+            <Route path='/' element={<ClientHome/>}/>
+            <Route path="admin/" element={<Home />} />
+            <Route exact path="admin/login" element={<Login />} />
             <Route path="class/:id" element={<Class />} />
             <Route path="/files" element={<Files />} />
             <Route path="/files/details" element={<FileDetails />} />

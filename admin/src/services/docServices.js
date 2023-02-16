@@ -36,6 +36,13 @@ const docServices = {
             .then(res => resolve(res.data))
             .catch(err => reject(err))
         })
+    },
+    getAllDoc : async () => {
+        return new Promise((resolve,reject) => {
+            api.call().get('/file/show/doc')
+            .then(res => resolve(res.data))
+            .catch(err => reject(err))
+        })
     }
 }
 

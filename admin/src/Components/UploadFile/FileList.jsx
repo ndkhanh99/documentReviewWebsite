@@ -13,7 +13,7 @@ const FileList = ({ files, removeFile }) => {
             {
                 files &&
                 files.map(f => (<FileItem
-                    key={f.name}
+                    key={f}
                     file={f}
                     deleteFile={deleteFileHandler} />))
             }

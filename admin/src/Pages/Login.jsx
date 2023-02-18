@@ -8,39 +8,39 @@ import { useDispatch } from 'react-redux';
 import openNotification from '../hooks/openNotification';
 import userServices from '../services/userServices';
 import { userRemember } from '../store/auth/authSlice';
-import {  CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
+import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
 
 export default function Login(props) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    useEffect(() => {
-        if (localStorage.getItem("token").length !==0) {
-        const token = localStorage.getItem('token')
-        const decode = jwtDecode(token)
-        userServices.getUserInfoById(decode.userID)
-        .then(res => {
-            if (res.success) {
-                dispatch(userRemember({token : token}))
-                navigate('/')
-            }
-        })
-        .catch(err => console.log(err))
-        }
-    }, [dispatch,navigate])
+    // useEffect(() => {
+    //     if (localStorage.getItem("token").length !==0) {
+    //     const token = localStorage.getItem('token')
+    //     const decode = jwtDecode(token)
+    //     userServices.getUserInfoById(decode.userID)
+    //     .then(res => {
+    //         if (res.success) {
+    //             dispatch(userRemember({token : token}))
+    //             navigate('/')
+    //         }
+    //     })
+    //     .catch(err => console.log(err))
+    //     }
+    // }, [dispatch,navigate])
 
 
-    const onFinish =  (values) => {
+    const onFinish = (values) => {
         const { email, password } = values
-        dispatch(userLogin({email : email, password : password}))
-        .then(res => {
-            if(res.payload.success) {
-                openNotification(<CheckCircleTwoTone twoToneColor={'green'}/>,'Notification!',res.payload.message)
-                navigate('/')
-            }else {
-                openNotification(<CloseCircleTwoTone twoToneColor={'red'}/>,'Notification!',res.payload.message)
-            }
-        })
-        
+        dispatch(userLogin({ email: email, password: password }))
+            .then(res => {
+                if (res.payload.success) {
+                    openNotification(<CheckCircleTwoTone twoToneColor={'green'} />, 'Notification!', res.payload.message)
+                    navigate('/')
+                } else {
+                    openNotification(<CloseCircleTwoTone twoToneColor={'red'} />, 'Notification!', res.payload.message)
+                }
+            })
+
     };
 
     const onFinishFailed = (errorInfo) => {

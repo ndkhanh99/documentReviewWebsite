@@ -34,6 +34,7 @@ export default function AddDocument(props) {
     const token = useSelector(state => state.auth.token)
     const [listDoc, setListDoc] = useState([])
     const [files, setFiles] = useState([]);
+    const [isClicked, setIsClicked] = useState('false');
 
 
     const removeFile = (filename) => {
@@ -42,6 +43,7 @@ export default function AddDocument(props) {
     const onFinish = (values) => {
         docServices.addDocument(token, values.document)
             .then(
+                setIsClicked('true'),
                 (res) => {
                     // console.log(res)
                     if (res.success) {
@@ -116,19 +118,20 @@ export default function AddDocument(props) {
                 >
                     <TextArea />
                 </Form.Item>
+                <div className="files-upload" style={{ width: "50%", marginBottom: '20px', marginLeft: '20px' }}>
+                    <div className="title">Upload file</div>
+                    <FileUpload
+                        files={files} setFiles={setFiles} removeFile={removeFile}
+                        isClicked={isClicked} setIsClicked={setIsClicked}
+                    />
+                    {/* <FileList files={files} removeFile={removeFile} /> */}
+                </div>
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
                     <Button type="primary" htmlType="submit">
                         Add
                     </Button>
                 </Form.Item>
             </Form>
-            <div className="files-upload">
-                <div className="title">Upload file</div>
-                <FileUpload files={files} setFiles={setFiles}
-                    removeFile={removeFile}
-                />
-                <FileList files={files} removeFile={removeFile} />
-            </div>
         </div>
     )
 }

@@ -8,7 +8,7 @@ const FileItem = ({ file, deleteFile }) => {
         <>
             <li
                 className="file-item"
-                key={file.name}
+                key={file}
             >
                 <FontAwesomeIcon icon={faFileAlt} />
                 <p>{file.name}</p>

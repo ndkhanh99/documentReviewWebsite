@@ -30,7 +30,7 @@ const getFileRouter = require('./routers/getFiles.route');
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@documentproject.nv08dal.mongodb.net/?retryWrites=true&w=majority`,
+        await mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@sharetailieu.nv08dal.mongodb.net/?retryWrites=true&w=majority`,
             {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,

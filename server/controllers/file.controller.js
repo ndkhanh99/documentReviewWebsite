@@ -44,7 +44,7 @@ const FileController = {
                 note : note
             })
             await newDoc.save()
-            return res.status(200).json(createError(true, 'Luu tai lieu thah cong'))
+            return res.status(200).json(createError(true, 'Luu tai lieu thanh cong'))
         } catch (error) {
             console.log(error);
             res.status(500).json(createError(false, 'Loi He thong'));

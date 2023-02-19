@@ -35,7 +35,7 @@ export default function Login(props) {
             .then(res => {
                 if (res.payload.success) {
                     openNotification(<CheckCircleTwoTone twoToneColor={'green'} />, 'Notification!', res.payload.message)
-                    navigate('/')
+                    navigate('/admin')
                 } else {
                     openNotification(<CloseCircleTwoTone twoToneColor={'red'} />, 'Notification!', res.payload.message)
                 }

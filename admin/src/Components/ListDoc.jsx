@@ -48,6 +48,7 @@ export default function ListDoc(props) {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
+                    <Link to="/files/details" state={{ data: _.code }}>Xem file</Link>
                     <Button type="primary" ghost onClick={() => {}}>
                         Sửa
                     </Button>

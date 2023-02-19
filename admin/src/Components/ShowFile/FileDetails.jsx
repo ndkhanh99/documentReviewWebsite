@@ -10,7 +10,6 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 export default function FileDetails(props) {
     const location = useLocation();
     const data = location.state?.data;
-    console.log(data);
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
 
@@ -71,8 +70,7 @@ export default function FileDetails(props) {
 
     function download(e) {
         e.preventDefault();
-        let filesname = data;
-        console.log(filesname);
+        let filesname = `${data}.pdf`;
         const book = { filesname };
         axios.post('http://localhost:3001/api/file/show/download', book, { responseType: 'blob' })
             .then(res => {
@@ -89,7 +87,7 @@ export default function FileDetails(props) {
             <Document
                 file={{
                     url:
-                        'http://localhost:3001/' + data,
+                        'http://localhost:3001/' + `${data}.pdf`,
                 }}
                 onLoadSuccess={onDocumentLoadSuccess}
                 onContextMenu={(e) => e.preventDefault()}

@@ -34,7 +34,8 @@ export default function AddDocument(props) {
     const token = useSelector(state => state.auth.token)
     const [listDoc, setListDoc] = useState([])
     const [files, setFiles] = useState([]);
-    const [isClicked, setIsClicked] = useState('false');
+    const [isClicked, setIsClicked] = useState(false);
+    const [fileName, setFileName] = useState('')
 
 
     const removeFile = (filename) => {
@@ -43,14 +44,13 @@ export default function AddDocument(props) {
     const onFinish = (values) => {
         docServices.addDocument(token, values.document)
             .then(
-                setIsClicked('true'),
                 (res) => {
-                    // console.log(res)
                     if (res.success) {
+                        setFileName(values.document.code)
+                        setIsClicked(true)
                         openNotification(<CheckCircleTwoTone twoToneColor={'green'} />, 'Notifications!', res.message)
                     } else {
-                        // console.log(res)
-                        openNotification(<CloseCircleTwoTone twoToneColor={'red'} />, 'Notifications!', res.message)
+                        openNotification(<CloseCircleTwoTone twoToneColor={'red'} />, 'Notifications!', res.response.data.message)
                     }
                 }
             )
@@ -122,7 +122,7 @@ export default function AddDocument(props) {
                     <div className="title">Upload file</div>
                     <FileUpload
                         files={files} setFiles={setFiles} removeFile={removeFile}
-                        isClicked={isClicked} setIsClicked={setIsClicked}
+                        isClicked={isClicked} setIsClicked={setIsClicked} fileName={fileName}
                     />
                     {/* <FileList files={files} removeFile={removeFile} /> */}
                 </div>

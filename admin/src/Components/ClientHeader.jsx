@@ -19,7 +19,7 @@ export default function ClientHeader(props) {
                 "
             >
                 <div>
-                    <a href="#">
+                    <a href="/">
                         <img className='rounded-lg' src="/images/blue-y-logo.jpeg" width={150} height={100} alt="Logo" />
                     </a>
                 </div>

@@ -27,6 +27,15 @@ const DocumentModel = mongoose.Schema({
         type : Number,
         default : 0
     },
+    seenCount : {
+        type : Number,
+        default : 0
+    },
+    downloadMode : {
+        type : String,
+        enum :['free', 'vip'],
+        default : 'vip'
+    },
     note: { type: String }
 }, { timestamps: true })
 

@@ -51,16 +51,16 @@ const FileUpload = ({ files, setFiles, removeFile, isClicked, setIsClicked, file
 
                 <div className="file-inputs">
                     <input type="file" accept='.pdf' onChange={uploadHandler} />
-                    <button>
+                    { !file ? (<button>
                         <i>
                             <FontAwesomeIcon icon={faPlus} />
                         </i>
-                        Upload
-                    </button>
+                        Tải file
+                    </button>) : <h2>{}</h2>}
                 </div>
-
+{/* 
                 <p className="main">Supported files</p>
-                <p className="info">PDF</p>
+                <p className="info">PDF</p> */}
 
             </div>
         </>

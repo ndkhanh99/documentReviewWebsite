@@ -31,7 +31,11 @@ export default function ListDoc(props) {
             title: 'Lượt xem',
             dataIndex: 'dowloadCount',
             key: 'dowloadCount',
-            render : (item) => <Typography>{item.name} - {item.email}</Typography>
+        },
+        {
+            title: 'Chế độ tải',
+            dataIndex: 'downloadMode',
+            key: 'downloadMode',
         },
         {
             title : "Ghi chú",

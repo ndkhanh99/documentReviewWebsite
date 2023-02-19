@@ -36,6 +36,7 @@ export default function AddDocument(props) {
     const [files, setFiles] = useState([]);
     const [isClicked, setIsClicked] = useState(false);
     const [fileName, setFileName] = useState('')
+    const listModeDownload = ['free', 'vip']
 
 
     const removeFile = (filename) => {
@@ -49,6 +50,7 @@ export default function AddDocument(props) {
                         setFileName(values.document.code)
                         setIsClicked(true)
                         openNotification(<CheckCircleTwoTone twoToneColor={'green'} />, 'Notifications!', res.message)
+                        
                     } else {
                         openNotification(<CloseCircleTwoTone twoToneColor={'red'} />, 'Notifications!', res.response.data.message)
                     }
@@ -113,22 +115,41 @@ export default function AddDocument(props) {
                     </Select>
                 </Form.Item>
                 <Form.Item
+                    name={['document', 'downloadMode']}
+                    label='Chế độ'
+                    rules={[
+                        {
+                            require: true
+                        }
+                    ]}>
+                    <Select>
+                        {
+                            listModeDownload.map(
+                                (item,index) => <Option 
+                                    key={index}
+                                    value={item}
+                                >{item}</Option>
+                            )
+                        }
+                    </Select>
+                </Form.Item>
+                <Form.Item
                     name={['document', 'note']}
                     label='Ghi chú'
                 >
                     <TextArea />
                 </Form.Item>
                 <div className="files-upload" style={{ width: "50%", marginBottom: '20px', marginLeft: '20px' }}>
-                    <div className="title">Upload file</div>
+                    <div className="title">Chọn file PDF</div>
                     <FileUpload
                         files={files} setFiles={setFiles} removeFile={removeFile}
                         isClicked={isClicked} setIsClicked={setIsClicked} fileName={fileName}
                     />
                     {/* <FileList files={files} removeFile={removeFile} /> */}
                 </div>
-                <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
+                <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
                     <Button type="primary" htmlType="submit">
-                        Add
+                        Thêm tài liệu
                     </Button>
                 </Form.Item>
             </Form>

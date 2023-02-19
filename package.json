@@ -6,6 +6,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "setupserver" : "cd server && yarn",
+    "setupweb" : "cd admin && yarn",
     "server" : "cd server && yarn dev",
     "web"  : "cd admin && yarn start"
   },

@@ -31,7 +31,11 @@ export default function ListDoc(props) {
             title: 'Lượt xem',
             dataIndex: 'dowloadCount',
             key: 'dowloadCount',
-            render : (item) => <Typography>{item.name} - {item.email}</Typography>
+        },
+        {
+            title: 'Chế độ tải',
+            dataIndex: 'downloadMode',
+            key: 'downloadMode',
         },
         {
             title : "Ghi chú",
@@ -48,6 +52,7 @@ export default function ListDoc(props) {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
+                    <Link to="/files/details" state={{ data: _.code }}>Xem file</Link>
                     <Button type="primary" ghost onClick={() => {}}>
                         Sửa
                     </Button>

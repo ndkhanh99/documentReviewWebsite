@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faL, faPlus } from '@fortawesome/free-solid-svg-icons';
 import './FileUpload.scss';
 import axios from 'axios';
 
-const FileUpload = ({ files, setFiles, removeFile, isClicked, setIsClicked }) => {
+const FileUpload = ({ files, setFiles, removeFile, isClicked, setIsClicked, fileName }) => {
     const [file, setNewFile] = useState([]);
     const uploadHandler = (event) => {
         setNewFile(event.target.files[0]);
@@ -14,17 +14,23 @@ const FileUpload = ({ files, setFiles, removeFile, isClicked, setIsClicked }) =>
     }
 
     // upload file
-    if (isClicked === 'true') {
+    if (isClicked) {
         const formData = new FormData();
+        const newFileName = `${fileName}.pdf`
         formData.append(
             "newFile",
             file,
-            file.name
+            newFileName
         );
         setTimeout(() => {
-            axios.post('http://localhost:3001/api/file/upload', formData)
+            axios.post('http://localhost:3001/api/file/upload', formData, 
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
                 .then(
-                    setIsClicked('fasle'),
+                    setIsClicked(false),
                     (res) => {
                         file.isUploading = false;
                         setFiles([...files, file]);
@@ -44,17 +50,17 @@ const FileUpload = ({ files, setFiles, removeFile, isClicked, setIsClicked }) =>
             <div className="file-card">
 
                 <div className="file-inputs">
-                    <input type="file" onChange={uploadHandler} />
-                    <button>
+                    <input type="file" accept='.pdf' onChange={uploadHandler} />
+                    { !file ? (<button>
                         <i>
                             <FontAwesomeIcon icon={faPlus} />
                         </i>
-                        Upload
-                    </button>
+                        Tải file
+                    </button>) : <h2>{}</h2>}
                 </div>
-
+{/* 
                 <p className="main">Supported files</p>
-                <p className="info">PDF, JPG, PNG</p>
+                <p className="info">PDF</p> */}
 
             </div>
         </>

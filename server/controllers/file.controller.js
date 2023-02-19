@@ -27,7 +27,7 @@ const FileController = {
         }
     },
     addNewDocument: async (req, res) => {
-        const { code, name, type, des, note } = req.body
+        const { code, name, type, des, note, downloadMode } = req.body
         if (!code || !name || !type) {
             return res.status(400).json(createError(false, 'Thieu thong tin bat buoc'))
         }
@@ -41,10 +41,11 @@ const FileController = {
                 name: name,
                 des: des,
                 type: type,
-                note: note
+                note: note,
+                downloadMode: downloadMode
             })
             await newDoc.save()
-            return res.status(200).json(createError(true, 'Luu tai lieu thah cong'))
+            return res.status(200).json(createError(true, 'Luu tai lieu thanh cong'))
         } catch (error) {
             console.log(error);
             res.status(500).json(createError(false, 'Loi He thong'));

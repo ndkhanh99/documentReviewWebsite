@@ -6,13 +6,17 @@ import Login from './Login'
 import Files from './Files'
 import FileDetails from '../Components/ShowFile/FileDetails'
 import ClientHome from './ClientRoute/ClientHome'
+import ClientLogin from './ClientRoute/ClientLogin'
+import ClientRegister from './ClientRoute/ClientRegister'
 
 export default function Navigation(props) {
 
 
     return (
         <Routes >
-            <Route path='/' element={<ClientHome/>}/>
+            <Route path='/' element={<ClientHome />} />
+            <Route path='/client/login' element={<ClientLogin />} />
+            <Route path='/client/register' element={<ClientRegister />} />
             <Route path="admin/" element={<Home />} />
             <Route exact path="admin/login" element={<Login />} />
             <Route path="class/:id" element={<Class />} />

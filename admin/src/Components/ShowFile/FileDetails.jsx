@@ -82,25 +82,83 @@ export default function FileDetails(props) {
     };
 
     return (
-        <div className='pdf'>
-            <h1>Tên tài liệu: {data ? data : "no data passing"}</h1>
-            <Document
-                file={{
-                    url:
-                        'http://localhost:3001/' + `${data}.pdf`,
-                }}
-                onLoadSuccess={onDocumentLoadSuccess}
-                onContextMenu={(e) => e.preventDefault()}
+        <div>
+            <nav
+                className="
+            flex flex-wrap
+            items-center
+            justify-between
+            w-full
+            py-4
+            md:py-0
+            px-4
+            text-lg text-gray-700
+            bg-slate-100
+            "
             >
-                <Page pageNumber={pageNumber} />
-            </Document>
-            <p>
-                Page {pageNumber} of {numPages}
-            </p>
-            <div className='download'>
-                <h2>Download to read all the document</h2>
-                <button onClick={(e) => download(e)}>Download</button>
+                <div>
+                    <a href="#">
+                        <img className='rounded-lg' src="/images/blue-y-logo.jpeg" width={150} height={100} alt="Logo" />
+                    </a>
+                </div>
+
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    id="menu-button"
+                    className="h-6 w-6 cursor-pointer md:hidden block"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 6h16M4 12h16M4 18h16"
+                    />
+                </svg>
+
+                <div className="hidden w-full md:flex md:items-center md:w-auto" id="menu">
+                    <ul
+                        className="
+                    pt-4
+                    text-base text-gray-700
+                    md:flex
+                    md:justify-between 
+                    md:pt-0"
+                    >
+                        <li className="md:p-4 py-2 block hover:text-[#007bff]">
+                            <p>Trang chủ</p>
+                        </li>
+                        <li>
+                            <p className="md:p-4 py-2 block hover:text-[#007bff]" href="#">Đăng nhập</p>
+                        </li>
+                        <li>
+                            <p className="md:p-4 py-2 block hover:text-[#007bff] text-[#007bff]" href="#">Đăng kí</p>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div className='pdf'>
+                <h1 className='text-2xl text-blue-600 border border-solid border-gray-900 p-3'>Tên tài liệu: {data ? data : "no data passing"}</h1>
+                <Document
+                    file={{
+                        url:
+                            'http://localhost:3001/' + `${data}.pdf`,
+                    }}
+                    onLoadSuccess={onDocumentLoadSuccess}
+                    onContextMenu={(e) => e.preventDefault()}
+                >
+                    <Page pageNumber={pageNumber} />
+                </Document>
+                <p>
+                    Page {pageNumber} of {numPages}
+                </p>
+                <div className='download'>
+                    <h2 className='underline mt-3'>Download to read all the document</h2>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3" onClick={(e) => download(e)}>Download</button>
+                </div>
             </div>
         </div>
+
     );
 }

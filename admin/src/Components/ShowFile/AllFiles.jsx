@@ -49,7 +49,7 @@ export default function FileItem(filesFilter) {
                                     <img src="/images/pdfexample.gif" width={300} height={350} alt="Logo" />
                                     <p className='item-name'>{item.name}</p>
                                 </a> */}
-                                <Link to="/files/details" state={{ data: item.name }}
+                                <Link to="/files/details" state={{ data: item.code }}
                                 >
                                     <img src="/images/pdfexample.gif" width={300} height={350} alt="Logo" />
                                 </Link>

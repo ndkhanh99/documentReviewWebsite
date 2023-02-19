@@ -30,6 +30,10 @@
     margin-top: 30px;
 
     .react-pdf__Document {
+
+        border-style: solid;
+        border-color: blue;
+
         .react-pdf__Page {
             margin-top: 20px;
             margin-bottom: 20px;

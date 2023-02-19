@@ -6,7 +6,6 @@
 .row {
     display: grid;
     grid-template-columns: auto auto auto;
-    padding: 10px;
 
 
     .column1 {
@@ -17,6 +16,8 @@
         margin-top: 20px;
         font-size: 10px;
         text-align: center;
+        height: 330px;
+        gap: 10px;
 
         .item-name {
             display: block;

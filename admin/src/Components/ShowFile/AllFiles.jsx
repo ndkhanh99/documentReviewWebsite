@@ -5,16 +5,20 @@ import { Link } from "react-router-dom";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-export default function FileItem(file, deleteFile) {
+export default function FileItem(filesFilter) {
     // fetch files from db
     let [items, setItems] = useState([]);
-    useEffect(() => { getMenuItems() }, []);
+    useEffect(() => { getMenuItems() }, [filesFilter.filesFilter]);
 
     async function getMenuItems() {
-        const response = await fetch('http://localhost:3001/api/file/show');
-        // console.log(response);
-        const data = await response.json();
-        setItems(data);
+        if (filesFilter.filesFilter.length === 0) {
+            const response = await fetch('http://localhost:3001/api/file/show');
+            // console.log(response);
+            const data = await response.json();
+            setItems(data);
+        } else {
+            setItems(filesFilter.filesFilter);
+        };
     };
 
     //custom react-pdf style
@@ -36,21 +40,22 @@ export default function FileItem(file, deleteFile) {
 
     return (
         <div className='container'>
-            <div className='row'>
+            <div className='row w-full gap-3'>
                 {items.map((item, index) =>
-                    // <li  key={index}>{item.name}</li>
-                    <div className='column1' key={index}>
-                        <div>
-                            {/* <a href={"/files/details/" + item.name}>
-                                <img src="/images/pdfexample.gif" width={300} height={350} alt="Logo" />
-                                <p className='item-name'>{item.name}</p>
-                            </a> */}
-                            <Link to="/files/details" state={{ data: item.name }}
-                            >
-                                <img src="/images/pdfexample.gif" width={300} height={350} alt="Logo" />
-                                <p className='item-name'>{item.name}</p>
-                            </Link>
+                    <div className='item-center text-center justify-center' key={index}>
+                        <div className='column1' >
+                            <div>
+                                {/* <a href={"/files/details/" + item.name}>
+                                    <img src="/images/pdfexample.gif" width={300} height={350} alt="Logo" />
+                                    <p className='item-name'>{item.name}</p>
+                                </a> */}
+                                <Link to="/files/details" state={{ data: item.name }}
+                                >
+                                    <img src="/images/pdfexample.gif" width={300} height={350} alt="Logo" />
+                                </Link>
+                            </div>
                         </div>
+                        <p className='item-name'>{item.name}</p>
                     </div>
                 )}
 

@@ -27,21 +27,21 @@ const FileController = {
         }
     },
     addNewDocument: async (req, res) => {
-        const {code,name, type, des,note} = req.body
+        const { code, name, type, des, note } = req.body
         if (!code || !name || !type) {
             return res.status(400).json(createError(false, 'Thieu thong tin bat buoc'))
         }
         try {
-            const doc = await Files.findOne({code : code}) 
+            const doc = await Files.findOne({ code: code })
             if (doc) {
                 return res.status(400).json(createError(false, 'Tai lieu da ton tai'))
             }
             const newDoc = new Files({
-                code : code,
-                name : name,
-                des : des,
-                type : type,
-                note : note
+                code: code,
+                name: name,
+                des: des,
+                type: type,
+                note: note
             })
             await newDoc.save()
             return res.status(200).json(createError(true, 'Luu tai lieu thah cong'))
@@ -51,7 +51,7 @@ const FileController = {
         }
     },
     addNewDocType: async (req, res) => {
-        const { code, name ,note} = req.body
+        const { code, name, note } = req.body
         if (!code || !name) {
             return res.status(400).json(createError(false, 'Thieu thong tin bat buoc'))
         }
@@ -74,7 +74,7 @@ const FileController = {
             res.status(500).json(createError(false, 'Loi he thong'))
         }
     },
-    getAllDocType : async (req,res) => {
+    getAllDocType: async (req, res) => {
         try {
             const listDocType = await DocType.find()
             return res.status(200).json(listDocType)
@@ -83,9 +83,20 @@ const FileController = {
             res.status(500).json(createError(false, 'Loi he thong'))
         }
     },
-    getALlDoc : async (req,res) => {
+    getALlDoc: async (req, res) => {
         try {
             const listDocument = await Files.find()
+            return res.status(200).json(listDocument)
+        } catch (error) {
+            console.log(error)
+            res.status(500).json(createError(false, 'Loi he thong'))
+        }
+    },
+    getDocByType: async (req, res) => {
+        try {
+            console.log(req.query.foo);
+            docTypeID = req.query.foo;
+            const listDocument = await Files.find({ type: docTypeID });
             return res.status(200).json(listDocument)
         } catch (error) {
             console.log(error)

@@ -83,8 +83,8 @@ export default function AddDocType(props) {
                     <TextArea />
                 </Form.Item>
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
-                    <Button type="primary" htmlType="submit">
-                        Add
+                    <Button type='ghost' htmlType="submit">
+                        Thêm loại tài liệu
                     </Button>
                 </Form.Item>
             </Form> 

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faL, faPlus } from '@fortawesome/free-solid-svg-icons';
 import './FileUpload.scss';
 import axios from 'axios';
+import { baseUrl } from '../../services';
 
 const FileUpload = ({ files, setFiles, removeFile, isClicked, setIsClicked, fileName }) => {
     const [file, setNewFile] = useState([]);
@@ -23,7 +24,7 @@ const FileUpload = ({ files, setFiles, removeFile, isClicked, setIsClicked, file
             newFileName
         );
         setTimeout(() => {
-            axios.post('http://localhost:3001/api/file/upload', formData, 
+            axios.post(`${baseUrl}/file/upload`, formData, 
             {
                 headers: {
                     'Content-Type': 'multipart/form-data'

@@ -98,7 +98,7 @@ export default function Adduser(props) {
                 </Select>
             </Form.Item>
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
-                <Button type="primary" htmlType="submit">
+                <Button type="ghost" htmlType="submit">
                     Đăng ký người dùng
                 </Button>
             </Form.Item>

@@ -15,8 +15,8 @@ export default function Navigation(props) {
     return (
         <Routes >
             <Route path='/' element={<ClientHome />} />
-            <Route path='/client/login' element={<ClientLogin />} />
-            <Route path='/client/register' element={<ClientRegister />} />
+            <Route path='/login' element={<ClientLogin />} />
+            <Route path='/register' element={<ClientRegister />} />
             <Route path="admin/" element={<Home />} />
             <Route exact path="admin/login" element={<Login />} />
             <Route path="class/:id" element={<Class />} />

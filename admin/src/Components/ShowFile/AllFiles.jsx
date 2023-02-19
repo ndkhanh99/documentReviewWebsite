@@ -2,6 +2,7 @@ import { React, useState, useEffect } from 'react';
 import { pdfjs } from 'react-pdf';
 import './AllFiles.scss';
 import { Link } from "react-router-dom";
+import { baseUrl } from '../../services';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -12,7 +13,7 @@ export default function FileItem(filesFilter) {
 
     async function getMenuItems() {
         if (filesFilter.filesFilter.length === 0) {
-            const response = await fetch('http://localhost:3001/api/file/show');
+            const response = await fetch(`${baseUrl}/file/show`);
             // console.log(response);
             const data = await response.json();
             setItems(data);
@@ -45,13 +46,9 @@ export default function FileItem(filesFilter) {
                     <div className='item-center text-center justify-center' key={index}>
                         <div className='column1' >
                             <div>
-                                {/* <a href={"/files/details/" + item.name}>
-                                    <img src="/images/pdfexample.gif" width={300} height={350} alt="Logo" />
-                                    <p className='item-name'>{item.name}</p>
-                                </a> */}
                                 <Link to="/files/details" state={{ data: item.code }}
                                 >
-                                    <img src="/images/pdfexample.gif" width={300} height={350} alt="Logo" />
+                                    <img src="/images/pdfexample.gif" width={200} height={250} alt="Logo" />
                                 </Link>
                             </div>
                         </div>

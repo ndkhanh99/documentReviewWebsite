@@ -148,7 +148,7 @@ export default function AddDocument(props) {
                     {/* <FileList files={files} removeFile={removeFile} /> */}
                 </div>
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 5 }}>
-                    <Button type="primary" htmlType="submit">
+                    <Button type='ghost' htmlType="submit">
                         Thêm tài liệu
                     </Button>
                 </Form.Item>

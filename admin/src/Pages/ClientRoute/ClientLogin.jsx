@@ -1,13 +1,28 @@
+import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import openNotification from '../../hooks/openNotification';
 import { userLogin } from '../../store/auth/authAction';
 
 export default function ClientLogin() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const handleLogin = () => {
         dispatch(userLogin({email, password}))
+        .then(
+            res => {
+                if (res.payload.success) {
+                    openNotification(<CheckCircleTwoTone twoToneColor={'green'} />, 'Notification!', res.payload.message)
+                    navigate('/')
+                } else {
+                    openNotification(<CloseCircleTwoTone twoToneColor={'red'} />, 'Notification!', res.payload.message)
+                }
+            }
+        )
+        .catch(err => console.log(err))
     }
     return (
         <div className="relative flex flex-col justify-center min-h-screen overflow-hidden bg-slate-100">

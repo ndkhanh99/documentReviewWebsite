@@ -48,9 +48,11 @@ const userServices = {
             ).catch(error => reject(error))
         })
     },
-    getUserInfoById : async (userID) => {
+    getUserInfoById : async (userID,token) => {
         return new Promise((resolve,reject)=> {
-            api.call().get(`/auth/${userID}`)
+            api.call().get(`/auth/${userID}`, {
+                headers : {Authorization : `Bearer ${token}`}
+            })
             .then(res => resolve(res.data))
             .catch(err => reject(err))
         })

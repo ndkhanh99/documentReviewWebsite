@@ -9,3 +9,11 @@ export const userLogin = createAsyncThunk(
         return res
     }
 )
+export const getUserById = createAsyncThunk(
+    'auth/getUserByID',
+    async (data, thunkAPI) => {
+        const {id,token} = data
+        const res = await userServices.getUserInfoById(id,token)
+        return res
+    }
+)

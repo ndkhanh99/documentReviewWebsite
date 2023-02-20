@@ -5,6 +5,9 @@ import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import ClientHeader from '../../Components/ClientHeader';
 import docServices from '../../services/docServices';
 import { baseUrl } from '../../services';
+import { jwtDecode } from 'jwt-decode';
+import userServices from '../../services/userServices';
+import { userRemember } from '../../store/auth/authSlice';
 
 export default function ClientHome(props) {
     // fetch files from db
@@ -13,6 +16,7 @@ export default function ClientHome(props) {
     const [activeMenu, setactiveMenu] = useState()
 
     useEffect(() => { getMenuItems() }, []);
+
 
     async function getMenuItems() {
         const response = await fetch(`${baseUrl}/file/show/doctype`);

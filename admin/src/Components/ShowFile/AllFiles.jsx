@@ -3,6 +3,7 @@ import { pdfjs } from 'react-pdf';
 import './AllFiles.scss';
 import { Link } from "react-router-dom";
 import { baseUrl } from '../../services';
+import docServices from '../../services/docServices';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -46,13 +47,20 @@ export default function FileItem(filesFilter) {
                     <div className='item-center text-center justify-center' key={index}>
                         <div className='column1' >
                             <div>
-                                <Link to="/files/details" state={{ data: item.code }}
+                                <Link to="/files/details"  state={{ data: item.code , item : item}}
+                                onClick={() =>  docServices.countSeen(item._id)}
                                 >
                                     <img src="/images/pdfexample.gif" width={200} height={250} alt="Logo" />
                                 </Link>
                             </div>
                         </div>
                         <p className='item-name'>{item.name}</p>
+                        <div className='flex flex-row justify-center gap-2'>
+                            <p>Lượt xem : {item.seenCount}</p>
+                            <p>Lượt tải : {item.dowloadCount}</p>
+                            <p className=' text-blue-500'>({item.downloadMode})</p>
+                        </div>
+                        
                     </div>
                 )}
 

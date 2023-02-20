@@ -9,6 +9,7 @@ router.post('/doctype', verifyAdmin, FileController.addNewDocType)
 router.get('/doctype', FileController.getAllDocType)
 router.post('/doc', FileController.addNewDocument)
 router.get('/doc', FileController.getALlDoc)
+router.post('/doc/count', FileController.countSeen)
 router.get('/filter', FileController.getDocByType)
 
 

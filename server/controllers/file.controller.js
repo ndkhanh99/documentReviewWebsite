@@ -96,9 +96,26 @@ const FileController = {
     getDocByType: async (req, res) => {
         try {
             console.log(req.query.foo);
-            docTypeID = req.query.foo;
+            const docTypeID = req.query.foo;
             const listDocument = await Files.find({ type: docTypeID });
             return res.status(200).json(listDocument)
+        } catch (error) {
+            console.log(error)
+            res.status(500).json(createError(false, 'Loi he thong'))
+        }
+    },
+    countSeen : async (req,res ) => {
+        const {id} = req.body
+        if (!id) {
+            return res.status(400).json(createError(false, 'Thieu thong tin bat buoc'))
+        }
+        try {
+            const Doc = await Files.findById(id)
+            const newCount = Doc.seenCount + 1
+            await Files.findByIdAndUpdate(id,{
+                seenCount : newCount
+            })
+            return res.status(200).json('Update count')
         } catch (error) {
             console.log(error)
             res.status(500).json(createError(false, 'Loi he thong'))

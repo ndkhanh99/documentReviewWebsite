@@ -43,6 +43,15 @@ const docServices = {
             .then(res => resolve(res.data))
             .catch(err => reject(err))
         })
+    },
+    countSeen : async (id) => {
+        return new Promise((resolve,reject) => {
+            api.call().post('/file/show/doc/count', {
+                id : id
+            })
+            .then(res => resolve(res.data))
+            .catch(err => reject(err))
+        })
     }
 }
 

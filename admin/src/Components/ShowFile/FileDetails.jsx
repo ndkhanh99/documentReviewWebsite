@@ -6,12 +6,21 @@ import fileDownload from 'js-file-download';
 import axios from 'axios';
 import ClientHeader from '../ClientHeader';
 import { baseHost, baseUrl } from '../../services';
+import docServices from '../../services/docServices';
+import { useSelector } from 'react-redux';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 export default function FileDetails(props) {
     const location = useLocation();
     const data = location.state?.data;
+    const item = location.state?.item
+    const user = useSelector(state => state.auth)
+    // useEffect(() => {
+    //     docServices.countSeen(id)
+    //     .then(res => console.log(res))
+    //     .catch(err => console.log(err))
+    // }, [id])
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
 
@@ -45,6 +54,7 @@ export default function FileDetails(props) {
 
 
     function download(e) {
+        if(validate()) {
         e.preventDefault();
         let filesname = `${data}.pdf`;
         const book = { filesname };
@@ -55,8 +65,21 @@ export default function FileDetails(props) {
             .catch(err => {
                 console.error(err);
             });
+        }
     };
 
+    const validate = () => {
+        if (!user?.isLogin) {
+            alert('Bạn cần phải đăng nhập để thực hiện thao tác này')
+            return false
+        }else {
+            if (item.downloadMode == 'vip' && user?.userInfo.role == 'normal') {
+                alert('Bạn phải nâng lên gói Vip để có thể tải tài liệu này')
+                return false
+            }
+        }
+        return true
+    }
     return (
         <div>
             <ClientHeader/>

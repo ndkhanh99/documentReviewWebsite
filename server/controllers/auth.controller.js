@@ -10,7 +10,6 @@ let refreshTokens = []
 const authController = {
     registerUser: async (req, res) => {
         const { name, email, password, role } = req.body
-
         // Simple validation :
         if (!email || !password || !name) {
             return res.status(400).json(createError(false, 'Thieu thong tin bat buoc'))
@@ -110,7 +109,8 @@ const authController = {
             let error = createError(true, 'Đăng nhập thành công')
             // console.log({...error,role : user.role, accessToken})
             res.status(200).json({ ...error, 
-                                    role: user.role, 
+                                    role: user.role,
+                                    name : user.name, 
                                     accessToken, 
                                     pushtoken
                                     })

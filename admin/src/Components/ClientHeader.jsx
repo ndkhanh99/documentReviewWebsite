@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserById } from '../store/auth/authAction'
 import { logOut } from '../store/auth/authSlice'
+import { Link } from "react-router-dom";
 
 export default function ClientHeader(props) {
     const token = localStorage.getItem('token')
@@ -13,10 +14,10 @@ export default function ClientHeader(props) {
     useEffect(() => {
         if (token && token.length > 0) {
             const decode = jwtDecode(token)
-            dispatch(getUserById({id : decode?.userID, token : token}))
+            dispatch(getUserById({ id: decode?.userID, token: token }))
         }
     }, []);
-    
+
     return (
         <>
             <nav
@@ -53,7 +54,7 @@ export default function ClientHeader(props) {
                     />
                 </svg>
                 {
-                    !userInfo.name ? <MenuNoLogin/> : <MenuLogin userName={userInfo?.name} avatar={userInfo.avatar} role = {userInfo?.role}/>
+                    !userInfo.name ? <MenuNoLogin /> : <MenuLogin userId={userInfo._id} userName={userInfo?.name} avatar={userInfo.avatar} role={userInfo?.role} />
                 }
             </nav>
         </>
@@ -64,51 +65,56 @@ export default function ClientHeader(props) {
 const MenuNoLogin = () => {
     return (
         <div className="hidden w-full md:flex md:items-center md:w-auto" id="menu">
-        <ul
-            className="
+            <ul
+                className="
             pt-4
             text-base text-gray-700
             md:flex
             md:justify-between 
             md:pt-0"
-        >
-            <li className="md:p-4 py-2 block hover:text-[#007bff]">
-                <a href='/'>Trang chủ</a>
-            </li>
-            <li>
-                <a className="md:p-4 py-2 block hover:text-[#007bff]" href="/login">Đăng nhập</a>
-            </li>
-            <li>
-                <a className="md:p-4 py-2 block hover:text-[#007bff] text-[#007bff]" href="/register">Đăng kí</a>
-            </li>
-        </ul>
-    </div>
+            >
+                <li className="md:p-4 py-2 block hover:text-[#007bff]">
+                    <a href='/'>Trang chủ</a>
+                </li>
+                <li>
+                    <a className="md:p-4 py-2 block hover:text-[#007bff]" href="/login">Đăng nhập</a>
+                </li>
+                <li>
+                    <a className="md:p-4 py-2 block hover:text-[#007bff] text-[#007bff]" href="/register">Đăng kí</a>
+                </li>
+            </ul>
+        </div>
     )
 }
 
-const MenuLogin = ({userName, avatar,role}) => {
+const MenuLogin = ({ userId, userName, avatar, role }) => {
     const dispatch = useDispatch()
     return (
         <div className="hidden w-full md:flex md:items-center md:w-auto" id="menu">
-        <ul
-            className="
+            <ul
+                className="
             pt-4
             text-base text-gray-700
             md:flex
             md:justify-between 
             md:pt-0"
-        >
-            {/* <li className="md:p-4 py-2 block hover:text-[#007bff]">
+            >
+                {/* <li className="md:p-4 py-2 block hover:text-[#007bff]">
                 <a href='/'>Trang chủ</a>
             </li> */}
-            <li className='flex flex-row justify-center items-center '>
-                <Avatar src={avatar} />
-                <a className="md:p-4 py-2 block hover:text-[#007bff]" onClick={() =>alert('DANG NHAP')}>{userName} ({role})</a>
-            </li>
-            <li>
-                <a className="md:p-4 py-2 block hover:text-[#007bff] text-[#007bff]" onClick={() =>dispatch(logOut()) }>Thoát</a>
-            </li>
-        </ul>
-    </div>
+                <li className='flex flex-row justify-center items-center '>
+                    <Avatar src={"http://localhost:3001/" + avatar} />
+                    {/* <a className="md:p-4 py-2 block hover:text-[#007bff]" href='/user/details'>{userName} ({role})</a> */}
+                    <Link to="/user/infomation" state={{ userId: userId }}
+                        className="md:p-4 py-2 block hover:text-[#007bff]"
+                    >
+                        {userName} ({role})
+                    </Link>
+                </li>
+                <li>
+                    <a className="md:p-4 py-2 block hover:text-[#007bff] text-[#007bff]" onClick={() => dispatch(logOut())}>Thoát</a>
+                </li>
+            </ul>
+        </div>
     )
 }

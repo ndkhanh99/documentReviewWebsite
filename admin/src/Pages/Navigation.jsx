@@ -8,6 +8,7 @@ import FileDetails from '../Components/ShowFile/FileDetails'
 import ClientHome from './ClientRoute/ClientHome'
 import ClientLogin from './ClientRoute/ClientLogin'
 import ClientRegister from './ClientRoute/ClientRegister'
+import UserDetails from '../Components/User/UserDetails'
 
 export default function Navigation(props) {
 
@@ -22,6 +23,7 @@ export default function Navigation(props) {
             <Route path="class/:id" element={<Class />} />
             <Route path="/files" element={<Files />} />
             <Route path="/files/details" element={<FileDetails />} />
+            <Route path="/user/infomation" element={<UserDetails />} />
         </Routes>
 
     )

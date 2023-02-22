@@ -17,7 +17,7 @@ router.put('/:userID', middleware.verifyToken, authController.updateUserInfo)
 router.put('/changePass/:userID', middleware.verifyToken, authController.updatePassword)
 router.put('/updatenamerole/:userID', verifyAdmin, authController.updateNameRole)
 router.delete('/:userID', verifyAdmin, authController.deteleUser)
-router.post('/update', authController.updateUserDetails)
+router.post('/update', middleware.verifyToken, authController.updateUserDetails)
 
 
 

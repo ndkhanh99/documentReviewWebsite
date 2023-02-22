@@ -2,13 +2,14 @@ const jwt = require('jsonwebtoken');
 const createError = require('../utils/errors');
 
 const middlewareAuth = {
-    verifyToken : (req,res,next) => {
+    verifyToken: (req, res, next) => {
         const authHeader = req.header('Authorization');
-        const token = authHeader && authHeader.split(' ')[1]
+        // console.log(authHeader);
+        const token = !authHeader ? req.body.headers.Authorization : authHeader && authHeader.split(' ')[1]
         // console.log('check token',token)
 
         if (!token) {
-            return res.status(403).json(createError(false,'Khong ton tai access token'));
+            return res.status(403).json(createError(false, 'Khong ton tai access token'));
         }
         try {
             const decoded = jwt.verify(token, `${process.env.ACCESS_TOKEN_SECRET}`);
@@ -18,24 +19,24 @@ const middlewareAuth = {
             next()
         } catch (error) {
             console.log(error)
-            return res.status(403).json(createError(false,'Access Token sai'))
+            return res.status(403).json(createError(false, 'Access Token sai'))
         }
     },
-    verifyTokenGVandAdmin : (req,res,next) => {
-        middlewareAuth.verifyToken(req,res, () =>{
+    verifyTokenGVandAdmin: (req, res, next) => {
+        middlewareAuth.verifyToken(req, res, () => {
             if (req.role === 'GV' || req.role === 'admin') {
                 next()
-            }else {
-                return res.status(403).json(createError(false,'Khong co quyen thao tac chuc nang nay'))
+            } else {
+                return res.status(403).json(createError(false, 'Khong co quyen thao tac chuc nang nay'))
             }
         })
     },
-    verifyAdmin : (req,res,next) => {
-        middlewareAuth.verifyToken(req, res, ()=> {
-            if (req.role === 'admin'){
+    verifyAdmin: (req, res, next) => {
+        middlewareAuth.verifyToken(req, res, () => {
+            if (req.role === 'admin') {
                 next()
-            }else {
-                return res.status(403).json(createError(false,'Khong co quyen thao tac chuc nang nay'))
+            } else {
+                return res.status(403).json(createError(false, 'Khong co quyen thao tac chuc nang nay'))
             }
         })
     },

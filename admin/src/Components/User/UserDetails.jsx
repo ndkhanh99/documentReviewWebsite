@@ -9,20 +9,23 @@ import axios from 'axios';
 
 export default function UserDetails(props) {
     const userInfo = useSelector(state => state.auth.userInfo)
-    const [user, setUser] = useState({ name: userInfo.name });
+    const [user, setUser] = useState({ name: null });
     const location = useLocation();
     const data = location.state?.userId;
+    const token = localStorage.getItem('token');
 
     async function updateUserInfo(e) {
         let userId = location.state?.userId;
-        console.log(userId);
-        console.log(user.name)
+        // console.log(userId);
+        // console.log(user.name);
+        // console.log(token);
         const formData = new FormData();
         formData.append('userId', userId);
         formData.append('name', user.name);
         axios.post(`${baseUrl}/auth/update`, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Authorization': token
             },
             body: formData,
             formData: {
@@ -34,7 +37,7 @@ export default function UserDetails(props) {
                 (res) => {
                     console.log("success")
                     console.log(res.data);
-                    console.log(res.data.result);
+                    window.location.reload();
                 })
             .catch((err) => {
                 console.error(err)
@@ -43,6 +46,7 @@ export default function UserDetails(props) {
 
     //upload user avatar
     async function uploadImg(e) {
+        console.log(token);
         const file = e.target.files[0];
         let userId = location.state?.userId;
         const formData = new FormData();
@@ -58,12 +62,14 @@ export default function UserDetails(props) {
         axios.post(`${baseUrl}/file/upload/avatar`, formData,
             {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': token
                 }
             })
             .then(
                 (res) => {
                     console.log(res.data);
+                    window.location.reload();
                 })
             .catch((err) => {
                 console.error(err)
@@ -102,7 +108,7 @@ export default function UserDetails(props) {
                     <div className='flex flex-row justify-start p-5 border-t-2 border-solid'>
                         <div className='grid grid-cols-3 gap-10 text-left w-full items-center'>
                             <h2>User Name</h2>
-                            <input type="text" value={user.name} onChange={e => handleChange(e)} />
+                            <input type="text" value={user.name === null ? userInfo.name : user.name} onChange={e => handleChange(e)} />
                             <div className='flex flex-row justify-center'>
                                 <FontAwesomeIcon icon={faArrowRight} />
                             </div>

@@ -1,6 +1,8 @@
 const express = require('express');
 const multer = require('multer');
-const path = require('path')
+const path = require('path');
+const { verifyAdmin, verifyToken } = require('../middleware/auth.middleware')
+const middleware = require('../middleware/auth.middleware')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -38,7 +40,7 @@ router.delete("/upload", (req, res) => {
 });
 
 // upload user avatar
-router.post("/upload/avatar", upload.single('avatar'),
+router.post("/upload/avatar", middleware.verifyToken, upload.single('avatar'),
     (req, res) => {
         const userId = req.body.userId;
         // User.findById(userId).then((result) => {

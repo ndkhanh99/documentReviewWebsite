@@ -8,6 +8,7 @@ import { baseUrl } from '../../services';
 import { jwtDecode } from 'jwt-decode';
 import userServices from '../../services/userServices';
 import { userRemember } from '../../store/auth/authSlice';
+import SideBar from '../../Components/SideBar';
 
 export default function ClientHome(props) {
     // fetch files from db
@@ -21,15 +22,15 @@ export default function ClientHome(props) {
     async function getMenuItems() {
         const response = await fetch(`${baseUrl}/file/show/doctype`);
         const data = await response.json();
-        setItems([{name : 'Tất cả', _id : ''},...data]);
+        setItems([{ name: 'Tất cả', _id: '' }, ...data]);
         setactiveMenu('')
     };
 
     async function filterItems(docTypeId) {
-        if (docTypeId == '' ) {
+        if (docTypeId == '') {
             const response = await docServices.getAllDoc()
             setFilesFilter(response)
-        }else {
+        } else {
             const response = await fetch(`${baseUrl}/file/show/filter?foo=${encodeURIComponent(docTypeId)}`, {
                 method: "GET",
             });
@@ -39,41 +40,33 @@ export default function ClientHome(props) {
     };
     return (
         <>
-            <div className='flex flex-col'>
-                <ClientHeader/>
-                <div className="px-4 bg-slate-100">
-                    <div
-                        className="
-                        items-center
-                        justify-center
-                        bg-white
-                        mx-auto
-                        max-w-7xl
-                        rounded-lg
-                        my-3
-                        "
-                    >
-                        <nav className="bg-[#007bff] justify-start items-center flex flex-row">
-                            <div className="ml-5toggle hidden w-full md:w-auto md:flex text-right text-bold mt-5 md:mt-0 border-t-2 border-blue-900 md:border-none text-white gap-4 ml-5 pl-2">
-                                {items.map((item, index) =>
-                                    <div key={item._id}>
-                                        <div className= {item._id === activeMenu ? 'bg-purple-600' : ''} 
-                                            onClick={() => {setactiveMenu(item._id)
-                                                            filterItems(item._id)}}>
-                                            <FontAwesomeIcon icon={faBookOpen} className="pl-2"/>
-                                            <a  className="block md:inline-block text-white hover:text-blue-500 px-3 py-3 border-b-2 border-blue-900 md:border-none">{item.name}</a>
-                                        </div>
+            <ClientHeader />
+            <div className="flex flex-row">
+                <div
+                    className="bg-blue-500 h-auto w-[200px] p-5  pt-8 relative duration-300 mt-5"
+                >
+                    <div className="justify-start flex flex-row h-full">
+                        <div className="toggle w-full text-start text-bold mt-5 md:mt-0 border-t-2 border-blue-900 md:border-none text-white gap-3 pl-2 flex flex-col h-full">
+                            {items.map((item, index) =>
+                                <div key={item._id}>
+                                    <div
+                                        className={` ${item._id === activeMenu ? "bg-purple-600" : ""} flex flex-row text-sm items-center text-center justify-start w-auto`}
 
+                                        onClick={() => {
+                                            setactiveMenu(item._id)
+                                            filterItems(item._id)
+                                        }}>
+                                        <FontAwesomeIcon icon={faBookOpen} className="pl-2" />
+                                        <p className="block md:inline-block text-white hover:text-blue-500 px-3 py-3 border-b-2 border-blue-900 md:border-none text-xs">{item.name}</p>
                                     </div>
-                                )}
-                            </div>
-                        </nav>
-                        <AllFile filesFilter={filesFilter} />
+
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
+                <AllFile filesFilter={filesFilter} />
             </div>
-
-
         </>
     )
 }

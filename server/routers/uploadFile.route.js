@@ -40,7 +40,7 @@ router.delete("/upload", (req, res) => {
 });
 
 // upload user avatar
-router.post("/upload/avatar", middleware.verifyToken, upload.single('avatar'),
+router.post("/upload/avatar", upload.single('avatar'),
     (req, res) => {
         const userId = req.body.userId;
         // User.findById(userId).then((result) => {

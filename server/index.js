@@ -26,11 +26,12 @@ app.use(bodyParser.json());
 const authRouter = require('./routers/auth.route');
 const uploadRouter = require('./routers/uploadFile.route');
 const getFileRouter = require('./routers/getFiles.route');
+const menuRouter = require('./routers/menu.route')
 
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@documentproject.nv08dal.mongodb.net/?retryWrites=true&w=majority`,
+        await mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@share-tailieu.0py5ysc.mongodb.net/?retryWrites=true&w=majority`,
             {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
@@ -48,6 +49,7 @@ connectDB();
 app.use('/api/auth', authRouter);
 app.use('/api/file', uploadRouter);
 app.use('/api/file/show', getFileRouter);
+app.use('/api/menu', menuRouter)
 
 
 

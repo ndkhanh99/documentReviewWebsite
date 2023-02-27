@@ -6,10 +6,10 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "setupserver" : "cd server && yarn",
-    "setupweb" : "cd admin && yarn",
-    "server" : "cd server && yarn dev",
-    "web"  : "cd admin && yarn start"
+    "setupserver" : "cd server && npm install",
+    "setupweb" : "cd admin && npm install",
+    "server" : "cd server && npm run dev",
+    "web"  : "cd admin && npm run start"
   },
   "repository": {
     "type": "git",

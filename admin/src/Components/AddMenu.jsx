@@ -27,12 +27,10 @@ const validateMessages = {
     },
 };
 
-export default function AddDocType(props) {
+export default function AddMenu(props) {
     const token = useSelector(state => state.auth.token)
-
-
     const onFinish = (values) => {
-        docServices.addDocType(token, values.document)
+        docServices.addNewMenu(token, values.menu)
             .then(
                 (res) => {
                     console.log(res)
@@ -49,18 +47,14 @@ export default function AddDocType(props) {
             }
             )
     }
-    const [listMenu, setlistMenu] = useState([])
-    useEffect(() => {
-        docServices.getAllMenu()
-        .then(res => setlistMenu(res))
-        .catch(err => console.log(err))
-    }, [])
+
+
     return (
         <div>
             <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages} >
                 <Form.Item
-                    name={['document', 'code']}
-                    label="Mã loại tài liệu"
+                    name={['menu', 'code']}
+                    label="Menu Code"
                     rules={[
                         {
                             required: true,
@@ -70,8 +64,8 @@ export default function AddDocType(props) {
                     <Input />
                 </Form.Item>
                 <Form.Item
-                    name={['document', 'name']}
-                    label="Tên loại tài liệu"
+                    name={['menu', 'name']}
+                    label="Tên menu"
                     rules={[
                         {
                             required: true
@@ -81,32 +75,14 @@ export default function AddDocType(props) {
                     <Input />
                 </Form.Item>
                 <Form.Item
-                    name={['document', 'menu']}
-                    label='Loại menu'
-                    rules={[
-                        {
-                            require: true
-                        }
-                    ]}>
-                    <Select>
-                        {
-                            listMenu.map(
-                                item => <Option key={item._id}
-                                    value={item._id}
-                                >{item.code} - {item.name}</Option>
-                            )
-                        }
-                    </Select>
-                </Form.Item>
-                <Form.Item
-                    name={['document', 'note']}
+                    name={['menu', 'note']}
                     label='Ghi chú'
                 >
                     <TextArea />
                 </Form.Item>
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 2 }}>
                     <Button type='ghost' htmlType="submit">
-                        Thêm loại tài liệu
+                        Thêm Menu
                     </Button>
                 </Form.Item>
             </Form> 

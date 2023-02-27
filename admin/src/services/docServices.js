@@ -2,12 +2,13 @@
 import api from './index';
 const docServices = {
     addDocType : async (token,input) => {
-        const {code,name,note} = input
+        const {code,name,note,menu} = input
         return new Promise((resolve,reject)=> {
             api.call().post(`/file/show/doctype`,{
                 code : code,
                 name : name,
                 note : note,
+                menu : menu
             },{
                 headers : {Authorization : `Bearer ${token}`}
             })
@@ -49,6 +50,28 @@ const docServices = {
             api.call().post('/file/show/doc/count', {
                 id : id
             })
+            .then(res => resolve(res.data))
+            .catch(err => reject(err))
+        })
+    },
+    // Menu API : 
+    addNewMenu : async (token, input ) => {
+        const {code,name,note} = input
+        return new Promise((resolve,reject)=> {
+            api.call().post(`/menu`,{
+                code : code,
+                name : name,
+                note : note,
+            },{
+                headers : {Authorization : `Bearer ${token}`}
+            })
+            .then(res => resolve(res.data))
+            .catch(err => reject(err))
+        })
+    },
+    getAllMenu : async (token) => {
+        return new Promise((resolve,reject) => {
+            api.call().get('/menu')
             .then(res => resolve(res.data))
             .catch(err => reject(err))
         })

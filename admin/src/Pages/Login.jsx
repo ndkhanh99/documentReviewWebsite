@@ -34,8 +34,13 @@ export default function Login(props) {
         dispatch(userLogin({ email: email, password: password }))
             .then(res => {
                 if (res.payload.success) {
-                    openNotification(<CheckCircleTwoTone twoToneColor={'green'} />, 'Notification!', res.payload.message)
-                    navigate('/admin')
+                    if (res.payload.role === 'admin') {
+                        openNotification(<CheckCircleTwoTone twoToneColor={'green'} />, 'Notification!', res.payload.message)
+                        navigate('/admin')
+                    }else {
+                        openNotification(<CloseCircleTwoTone twoToneColor={'red'} />, 'Notification!', 'Không thể đăng nhập vào admin')
+                    }
+
                 } else {
                     openNotification(<CloseCircleTwoTone twoToneColor={'red'} />, 'Notification!', res.payload.message)
                 }

@@ -52,33 +52,42 @@ const FileController = {
         }
     },
     addNewDocType: async (req, res) => {
-        const { code, name, note } = req.body
-        if (!code || !name) {
+        const { code, name, note,menu } = req.body
+        if (!code || !name || !menu) {
             return res.status(400).json(createError(false, 'Thieu thong tin bat buoc'))
         }
         try {
             //  Kiem tra ma tai lieu da ton tai hay chua
             const docType = await DocType.findOne({ code: code })
             if (docType) {
-                return res.status(400).json(createError(false, 'Loai tai lieu da ton tai'))
+                return res.status(400).json(createError(false, 'Ma tai lieu da ton tai'))
             }
             // all good  :
             const newDocType = new DocType({
                 code: code,
                 name: name,
-                note: note
+                note: note,
+                menu : menu
             })
             await newDocType.save()
-            res.status(200).json(createError(true, 'Tao TK thanh cong'))
+            res.status(200).json(createError(true, 'Tao Loai tai lieu thanh cong'))
         } catch (error) {
             console.log(error)
             res.status(500).json(createError(false, 'Loi he thong'))
         }
     },
     getAllDocType: async (req, res) => {
+        const {menu}  = req.params
         try {
-            const listDocType = await DocType.find()
-            return res.status(200).json(listDocType)
+            if (!menu) {
+                const listDocType = await DocType.find()
+                return res.status(200).json(listDocType)
+            }else {
+                const listDocType = await DocType.find({
+                    menu : menu
+                })
+                return res.status(200).json(listDocType)
+            }
         } catch (error) {
             console.log(error)
             res.status(500).json(createError(false, 'Loi he thong'))

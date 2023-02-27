@@ -5,16 +5,17 @@ import {
 } from '@ant-design/icons';
 import { Breadcrumb, Button, Layout, Menu } from 'antd';
 import React, { useEffect, useState } from 'react';
-import AddDocument from '../Components/AddDocument';
-import AddUser from '../Components/AddUser';
-import Listuser from '../Components/ListUser';
-import ListDoc from '../Components/ListDoc';
+import AddDocument from '../../Components/AddDocument';
+import AddUser from '../../Components/AddUser';
+import Listuser from '../../Components/ListUser';
+import ListDoc from '../../Components/ListDoc';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logOut } from '../store/auth/authSlice';
+import { logOut } from '../../store/auth/authSlice';
 
-import AddDocType from '../Components/AddDocType';
-import AddMenu from '../Components/AddMenu';
+import AddDocType from '../../Components/AddDocType';
+import AddMenu from '../../Components/AddMenu';
+import ClientHeader from '../../Components/ClientHeader';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -31,8 +32,8 @@ function getItem(label, key, icon, children, navigate) {
 
 const items = [
     getItem('User', 'sub1', <UserOutlined />, [
-        getItem('Thêm', '2', '', null, <AddUser />),
-        getItem('Danh sách', '3', '', null, <Listuser />),
+        getItem('Thêm', '2', '', null),
+        getItem('Danh sách', '3', '', null),
     ]),
     getItem('Tài liệu', 'sub2', <TeamOutlined />,
         [getItem('Thêm menu', '5'),
@@ -53,16 +54,8 @@ const listComponentRender = [
 
 
 
-const Home = () => {
-
-    const isLogin = useSelector(state => state.auth.isLogin)
-    const navigate = useNavigate()
+const NewClientHome = () => {
     const dispatch = useDispatch()
-    useEffect(() => {
-        if (!isLogin || !localStorage.getItem("token")) {
-            navigate('./login')
-        }
-    }, [isLogin, navigate])
     const [collapsed, setCollapsed] = useState(false);
     const [componentLayout, setComponentLayout] = useState(<AddUser />)
     const [element, setElement] = useState('Người dùng')
@@ -77,6 +70,8 @@ const Home = () => {
         }
     }
     return (
+        <>
+        <ClientHeader/>
         <Layout
             style={{
                 minHeight: '100vh',
@@ -133,8 +128,9 @@ const Home = () => {
                     Thiết kế bởi : builinhduong43@gmail.com
                 </Footer>
             </Layout>
-        </Layout>
+        </Layout></>
+        
     );
 };
 
-export default Home;
+export default NewClientHome;
